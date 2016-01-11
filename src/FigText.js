@@ -11,6 +11,25 @@ export default class FigText extends Shape {
   }
 
   /**
+   * Get actual width of the shape.
+   *
+   * @returns {Number}
+   */
+  getWidth() {
+    const text = this._render().split('\n').map(item => item.length);
+    return Math.max(...text);
+  }
+
+  /**
+   * Get actual height of the shape.
+   *
+   * @returns {Number}
+   */
+  getHeight() {
+    return this._render().split('\n').length;
+  }
+
+  /**
    * Get font that uses for rendering text.
    *
    * @returns {String}
@@ -70,19 +89,30 @@ export default class FigText extends Shape {
   }
 
   /**
+   * Pre render the ASCII art without writing it to the cursor.
+   *
+   * @returns {String} Returns string of ASCII art
+   * @private
+   */
+  _render() {
+    const font = this.getFont();
+    const horizontalLayout = this.getHorizontalLayout();
+    const verticalLayout = this.getVerticalLayout();
+
+    return figlet.textSync(this.getText(), {font, horizontalLayout, verticalLayout});
+  }
+
+  /**
    * Render the shape.
    *
    * @param {Cursor} cursor
    */
   render(cursor) {
+    let text = this._render().split('\n');
     let x = this.getX();
     let y = this.getY();
     let background = this.getBackground();
     let foreground = this.getForeground();
-    let font = this.getFont();
-    let horizontalLayout = this.getHorizontalLayout();
-    let verticalLayout = this.getVerticalLayout();
-    let text = figlet.textSync(this.getText(), {font, horizontalLayout, verticalLayout}).split('\n');
 
     if (typeof background !== 'undefined') cursor.background(background);
     if (typeof foreground !== 'undefined') cursor.foreground(foreground);
