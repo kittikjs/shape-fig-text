@@ -9,6 +9,16 @@ describe('Shape::FigText', () => {
     assert.instanceOf(text, FigText);
   });
 
+  it('Should properly get actual width of the shape', () => {
+    let text = new FigText({text: 'test'});
+    assert.equal(text.getWidth(), 19);
+  });
+
+  it('Should properly get actual height of the shape', () => {
+    let text = new FigText({text: 'test'});
+    assert.equal(text.getHeight(), 6);
+  });
+
   it('Should properly get/set font', () => {
     let text = new FigText();
     assert.equal(text.getFont(), 'Standard');
@@ -57,7 +67,7 @@ describe('Shape::FigText', () => {
 
   it('Should properly render with custom options', () => {
     let cursor = Cursor.create();
-    let text = new FigText({background: 'black', foreground: 'white'});
+    let text = new FigText({text: 'test', background: 'black', foreground: 'white'});
     let mock = sinon.mock(cursor);
 
     mock.expects('background').once().withArgs('black');
@@ -71,7 +81,7 @@ describe('Shape::FigText', () => {
   });
 
   it('Should properly create Object representation', () => {
-    let text = new FigText({text: 'test', font: 'Ghost', horizontalLayout: 'full', verticalLayout: 'fitted'});
+    let text = new FigText({text: 'test', x: '10%', font: 'Ghost', horizontalLayout: 'full', verticalLayout: 'fitted'});
     let obj = text.toObject();
 
     assert.deepEqual(obj, {
@@ -80,7 +90,7 @@ describe('Shape::FigText', () => {
         text: 'test',
         width: 15,
         height: 5,
-        x: 10,
+        x: '10%',
         y: 10,
         background: undefined,
         foreground: undefined,
