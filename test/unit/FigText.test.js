@@ -57,11 +57,11 @@ describe('Shape::FigText', () => {
 
   it('Should properly render with custom options', () => {
     let cursor = Cursor.create();
-    let text = new FigText({background: cursor.COLORS.BLACK, foreground: cursor.COLORS.WHITE});
+    let text = new FigText({background: 'black', foreground: 'white'});
     let mock = sinon.mock(cursor);
 
-    mock.expects('background').once().withArgs(0);
-    mock.expects('foreground').once().withArgs(15);
+    mock.expects('background').once().withArgs('black');
+    mock.expects('foreground').once().withArgs('white');
     mock.expects('moveTo').exactly(6).returns(cursor);
     mock.expects('write').exactly(6).returns(cursor);
 
@@ -75,58 +75,45 @@ describe('Shape::FigText', () => {
     let obj = text.toObject();
 
     assert.deepEqual(obj, {
-      name: 'FigText',
+      type: 'FigText',
       options: {
         text: 'test',
         width: 15,
         height: 5,
         x: 10,
         y: 10,
-        alignX: 'none',
-        alignY: 'none',
-        font: 'Ghost',
-        horizontalLayout: 'full',
-        verticalLayout: 'fitted',
         background: undefined,
         foreground: undefined,
-        animation: undefined
+        font: 'Ghost',
+        horizontalLayout: 'full',
+        verticalLayout: 'fitted'
       }
     });
   });
 
   it('Should properly create FigText instance from Object representation', () => {
     let text = FigText.fromObject({
-      name: 'FigText',
+      type: 'FigText',
       options: {
         text: 'test',
-        width: 15,
-        height: 5,
-        x: 10,
-        y: 10,
-        alignX: 'none',
-        alignY: 'none',
-        font: 'Ghost',
-        horizontalLayout: 'full',
-        verticalLayout: 'fitted',
+        x: 'center',
+        y: 'middle',
         background: undefined,
         foreground: undefined,
-        animation: undefined
+        font: 'Ghost',
+        horizontalLayout: 'full',
+        verticalLayout: 'fitted'
       }
     });
 
     assert.instanceOf(text, FigText);
     assert.equal(text.getText(), 'test');
-    assert.equal(text.getWidth(), 15);
-    assert.equal(text.getHeight(), 5);
-    assert.equal(text.getX(), 10);
-    assert.equal(text.getY(), 10);
-    assert.equal(text.getAlignX(), 'none');
-    assert.equal(text.getAlignY(), 'none');
+    assert.equal(text.get('x'), 'center');
+    assert.equal(text.get('y'), 'middle');
+    assert.isUndefined(text.getBackground());
+    assert.isUndefined(text.getForeground());
     assert.equal(text.getFont(), 'Ghost');
     assert.equal(text.getHorizontalLayout(), 'full');
     assert.equal(text.getVerticalLayout(), 'fitted');
-    assert.isUndefined(text.getBackground());
-    assert.isUndefined(text.getForeground());
-    assert.isUndefined(text.getAnimation());
   });
 });
