@@ -1,7 +1,7 @@
 "use strict";
 
 const FigText = require('../lib/FigText').default;
-const cursor = require('kittik-cursor').Cursor.create().resetTTY();
+const cursor = require('kittik-cursor').default.create().resetTTY();
 
 FigText.create({
   text: 'KittikJS\n    Rules\n           !!!',

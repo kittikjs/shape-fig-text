@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { Cursor } from 'kittik-cursor';
+import Cursor from 'kittik-cursor';
 import sinon from 'sinon';
 import FigText from '../../src/FigText';
 
