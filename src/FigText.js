@@ -108,11 +108,11 @@ export default class FigText extends Shape {
    * @param {Cursor} cursor
    */
   render(cursor) {
-    let text = this._render().split('\n');
-    let x = this.getX();
-    let y = this.getY();
-    let background = this.getBackground();
-    let foreground = this.getForeground();
+    const text = this._render().split('\n');
+    const x = this.getX();
+    const y = this.getY();
+    const background = this.getBackground();
+    const foreground = this.getForeground();
 
     if (typeof background !== 'undefined') cursor.background(background);
     if (typeof foreground !== 'undefined') cursor.foreground(foreground);
