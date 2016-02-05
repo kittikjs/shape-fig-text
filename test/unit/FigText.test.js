@@ -5,55 +5,55 @@ import FigText from '../../src/FigText';
 
 describe('Shape::FigText', () => {
   it('Should properly create FigText instance', () => {
-    let text = new FigText();
+    const text = new FigText();
     assert.instanceOf(text, FigText);
   });
 
   it('Should properly get actual width of the shape', () => {
-    let text = new FigText({text: 'test'});
+    const text = new FigText({text: 'test'});
     assert.equal(text.getWidth(), 19);
   });
 
   it('Should properly get actual height of the shape', () => {
-    let text = new FigText({text: 'test'});
+    const text = new FigText({text: 'test'});
     assert.equal(text.getHeight(), 6);
   });
 
   it('Should properly get/set font', () => {
-    let text = new FigText();
+    const text = new FigText();
     assert.equal(text.getFont(), 'Standard');
     assert.instanceOf(text.setFont('Ghost'), FigText);
     assert.equal(text.getFont(), 'Ghost');
   });
 
   it('Should properly get/set horizontal layout', () => {
-    let text = new FigText();
+    const text = new FigText();
     assert.equal(text.getHorizontalLayout(), 'default');
     assert.instanceOf(text.setHorizontalLayout('full'), FigText);
     assert.equal(text.getHorizontalLayout(), 'full');
   });
 
   it('Should properly throw exception if horizontal layout is wrong', () => {
-    let text = new FigText();
+    const text = new FigText();
     assert.throws(() => text.setHorizontalLayout('wrong'), Error, 'Unrecognized layout: wrong');
   });
 
   it('Should properly get/set vertical layout', () => {
-    let text = new FigText();
+    const text = new FigText();
     assert.equal(text.getVerticalLayout(), 'default');
     assert.instanceOf(text.setVerticalLayout('fitted'), FigText);
     assert.equal(text.getVerticalLayout(), 'fitted');
   });
 
   it('Should properly throw exception if vertical layout is wrong', () => {
-    let text = new FigText();
+    const text = new FigText();
     assert.throws(() => text.setVerticalLayout('wrong'), Error, 'Unrecognized layout: wrong');
   });
 
   it('Should properly render with default options', () => {
-    let cursor = Cursor.create();
-    let text = new FigText();
-    let mock = sinon.mock(cursor);
+    const cursor = Cursor.create();
+    const text = new FigText();
+    const mock = sinon.mock(cursor);
 
     mock.expects('background').never();
     mock.expects('foreground').never();
@@ -66,9 +66,9 @@ describe('Shape::FigText', () => {
   });
 
   it('Should properly render with custom options', () => {
-    let cursor = Cursor.create();
-    let text = new FigText({text: 'test', background: 'black', foreground: 'white'});
-    let mock = sinon.mock(cursor);
+    const cursor = Cursor.create();
+    const text = new FigText({text: 'test', background: 'black', foreground: 'white'});
+    const mock = sinon.mock(cursor);
 
     mock.expects('background').once().withArgs('black');
     mock.expects('foreground').once().withArgs('white');
@@ -81,8 +81,14 @@ describe('Shape::FigText', () => {
   });
 
   it('Should properly create Object representation', () => {
-    let text = new FigText({text: 'test', x: '10%', font: 'Ghost', horizontalLayout: 'full', verticalLayout: 'fitted'});
-    let obj = text.toObject();
+    const text = new FigText({
+      text: 'test',
+      x: '10%',
+      font: 'Ghost',
+      horizontalLayout: 'full',
+      verticalLayout: 'fitted'
+    });
+    const obj = text.toObject();
 
     assert.deepEqual(obj, {
       type: 'FigText',
@@ -102,7 +108,7 @@ describe('Shape::FigText', () => {
   });
 
   it('Should properly create FigText instance from Object representation', () => {
-    let text = FigText.fromObject({
+    const text = FigText.fromObject({
       type: 'FigText',
       options: {
         text: 'test',
