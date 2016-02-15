@@ -4,7 +4,7 @@ const FigText = require('../lib/FigText');
 const cursor = require('kittik-cursor').create().resetTTY();
 
 FigText.create({
-  text: 'KittikJS\n    Rules\n           !!!',
+  text: 'KittikJS',
   x: 'center',
   y: 'middle',
   font: 'Star Wars',
@@ -12,4 +12,4 @@ FigText.create({
   horizontalLayout: 'full'
 }).render(cursor);
 
-cursor.flush();
+cursor.moveTo(1, process.stdout.rows).flush();
