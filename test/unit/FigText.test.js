@@ -1,87 +1,89 @@
-import { assert } from 'chai';
+import {assert} from 'chai';
 import Cursor from 'kittik-cursor';
 import sinon from 'sinon';
 import FigText from '../../src/FigText';
 
+const cursor = Cursor.create();
+
 describe('Shape::FigText', () => {
   it('Should properly create FigText instance', () => {
-    const text = new FigText();
+    const text = new FigText(cursor);
     assert.instanceOf(text, FigText);
   });
 
   it('Should properly get actual width of the shape', () => {
-    const text = new FigText({text: 'test'});
+    const text = new FigText(cursor, {text: 'test'});
     assert.equal(text.getWidth(), 19);
   });
 
   it('Should properly get actual height of the shape', () => {
-    const text = new FigText({text: 'test'});
+    const text = new FigText(cursor, {text: 'test'});
     assert.equal(text.getHeight(), 6);
   });
 
   it('Should properly get/set font', () => {
-    const text = new FigText();
+    const text = new FigText(cursor);
     assert.equal(text.getFont(), 'Standard');
     assert.instanceOf(text.setFont('Ghost'), FigText);
     assert.equal(text.getFont(), 'Ghost');
   });
 
   it('Should properly get/set horizontal layout', () => {
-    const text = new FigText();
+    const text = new FigText(cursor);
     assert.equal(text.getHorizontalLayout(), 'default');
     assert.instanceOf(text.setHorizontalLayout('full'), FigText);
     assert.equal(text.getHorizontalLayout(), 'full');
   });
 
   it('Should properly throw exception if horizontal layout is wrong', () => {
-    const text = new FigText();
+    const text = new FigText(cursor);
     assert.throws(() => text.setHorizontalLayout('wrong'), Error, 'Unrecognized layout: wrong');
   });
 
   it('Should properly get/set vertical layout', () => {
-    const text = new FigText();
+    const text = new FigText(cursor);
     assert.equal(text.getVerticalLayout(), 'default');
     assert.instanceOf(text.setVerticalLayout('fitted'), FigText);
     assert.equal(text.getVerticalLayout(), 'fitted');
   });
 
   it('Should properly throw exception if vertical layout is wrong', () => {
-    const text = new FigText();
+    const text = new FigText(cursor);
     assert.throws(() => text.setVerticalLayout('wrong'), Error, 'Unrecognized layout: wrong');
   });
 
   it('Should properly render with default options', () => {
     const cursor = Cursor.create();
-    const text = new FigText();
+    const text = new FigText(cursor);
     const mock = sinon.mock(cursor);
 
-    mock.expects('background').never();
-    mock.expects('foreground').never();
+    mock.expects('background').once().withExactArgs(false).returns(cursor);
+    mock.expects('foreground').once().withExactArgs(false).returns(cursor);
     mock.expects('moveTo').exactly(6).returns(cursor);
     mock.expects('write').exactly(6).withArgs('').returns(cursor);
 
-    text.render(cursor);
+    text.render();
 
     mock.verify();
   });
 
   it('Should properly render with custom options', () => {
     const cursor = Cursor.create();
-    const text = new FigText({text: 'test', background: 'black', foreground: 'white'});
+    const text = new FigText(cursor, {text: 'test', background: 'black', foreground: 'white'});
     const mock = sinon.mock(cursor);
 
-    mock.expects('background').once().withArgs('black');
-    mock.expects('foreground').once().withArgs('white');
+    mock.expects('background').once().withArgs('black').returns(cursor);
+    mock.expects('foreground').once().withArgs('white').returns(cursor);
     mock.expects('moveTo').exactly(6).returns(cursor);
     mock.expects('write').exactly(6).returns(cursor);
 
-    text.render(cursor);
+    text.render();
 
     mock.verify();
   });
 
   it('Should properly create Object representation', () => {
-    const text = new FigText({
+    const text = new FigText(cursor, {
       text: 'test',
       x: '10%',
       font: 'Ghost',
@@ -98,8 +100,8 @@ describe('Shape::FigText', () => {
         height: 5,
         x: '10%',
         y: 10,
-        background: undefined,
-        foreground: undefined,
+        background: false,
+        foreground: false,
         font: 'Ghost',
         horizontalLayout: 'full',
         verticalLayout: 'fitted'
@@ -114,20 +116,21 @@ describe('Shape::FigText', () => {
         text: 'test',
         x: 'center',
         y: 'middle',
-        background: undefined,
-        foreground: undefined,
+        background: 'red',
+        foreground: 'black',
         font: 'Ghost',
         horizontalLayout: 'full',
         verticalLayout: 'fitted'
       }
-    });
+    }, cursor);
 
     assert.instanceOf(text, FigText);
+    assert.instanceOf(text.getCursor(), Cursor);
     assert.equal(text.getText(), 'test');
     assert.equal(text.get('x'), 'center');
     assert.equal(text.get('y'), 'middle');
-    assert.isUndefined(text.getBackground());
-    assert.isUndefined(text.getForeground());
+    assert.equal(text.getBackground(), 'red');
+    assert.equal(text.getForeground(), 'black');
     assert.equal(text.getFont(), 'Ghost');
     assert.equal(text.getHorizontalLayout(), 'full');
     assert.equal(text.getVerticalLayout(), 'fitted');
