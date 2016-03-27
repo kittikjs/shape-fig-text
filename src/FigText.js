@@ -2,8 +2,17 @@ import Shape from 'kittik-shape-basic';
 import figlet from 'figlet';
 
 export default class FigText extends Shape {
-  constructor(options = {}) {
-    super(options);
+  /**
+   * Create ASCII-art shape.
+   *
+   * @param {Cursor} cursor Cursor instance
+   * @param {Object} [options]
+   * @param {String} [options.font]
+   * @param {String} [options.horizontalLayout]
+   * @param {String} [options.verticalLayout]
+   */
+  constructor(cursor, options = {}) {
+    super(cursor, options);
 
     this.setFont(options.font);
     this.setHorizontalLayout(options.horizontalLayout);
@@ -105,19 +114,21 @@ export default class FigText extends Shape {
   /**
    * Render the shape.
    *
-   * @param {Cursor} cursor
+   * @returns {FigText}
    */
-  render(cursor) {
+  render() {
+    const cursor = this.getCursor();
     const text = this._render().split('\n');
     const x = this.getX();
     const y = this.getY();
     const background = this.getBackground();
     const foreground = this.getForeground();
 
-    if (typeof background !== 'undefined') cursor.background(background);
-    if (typeof foreground !== 'undefined') cursor.foreground(foreground);
+    cursor.background(background).foreground(foreground);
 
     text.forEach((item, index) => cursor.moveTo(x, y + index).write(item));
+
+    return this;
   }
 
   /**
@@ -126,12 +137,12 @@ export default class FigText extends Shape {
    * @returns {{name, options}|*}
    */
   toObject() {
-    let obj = super.toObject();
+    const obj = super.toObject();
 
     Object.assign(obj.options, {
-      font: this.getFont(),
-      horizontalLayout: this.getHorizontalLayout(),
-      verticalLayout: this.getVerticalLayout()
+      font: this.get('font'),
+      horizontalLayout: this.get('horizontalLayout'),
+      verticalLayout: this.get('verticalLayout')
     });
 
     return obj;
