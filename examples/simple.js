@@ -1,15 +1,15 @@
 "use strict";
 
 const FigText = require('../lib/FigText');
-const cursor = require('kittik-cursor').create().resetTTY();
+const cursor = require('kittik-cursor').create().reset();
 
-FigText.create({
+FigText.create(cursor, {
   text: 'KittikJS',
   x: 'center',
   y: 'middle',
   font: 'Star Wars',
-  foreground: 'yellow_1',
+  foreground: 'yellow',
   horizontalLayout: 'full'
-}).render(cursor);
+}).render();
 
-cursor.moveTo(1, process.stdout.rows).flush();
+cursor.flush();
