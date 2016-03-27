@@ -29,7 +29,7 @@ Include in your project:
 import Cursor from 'kittik-cursor';
 import FigText from 'kittik-shape-fig-text';
 
-FigText.create({text: 'Hello, there'}).render(Cursor.create());
+FigText.create(Cursor.create(), {text: 'Hello, there'}).render();
 ```
 
 ## License
