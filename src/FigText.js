@@ -1,15 +1,31 @@
 import Shape from 'kittik-shape-basic';
 import figlet from 'figlet';
 
+/**
+ * Implements ASCII art text via Figlet fonts.
+ *
+ * @extends {Shape}
+ * @since 1.0.0
+ */
 export default class FigText extends Shape {
   /**
    * Create ASCII-art shape.
    *
+   * @constructor
    * @param {Cursor} cursor Cursor instance
-   * @param {Object} [options]
-   * @param {String} [options.font]
-   * @param {String} [options.horizontalLayout]
-   * @param {String} [options.verticalLayout]
+   * @param {Object} [options] Options object
+   * @param {String} [options.font] Figlet font that you want to use
+   * @param {String} [options.horizontalLayout] A string value that indicates the horizontal layout to use
+   * @param {String} [options.verticalLayout] A string value that indicates the vertical layout to use
+   * @example
+   * FigText.create(cursor, {
+   *   text: 'Hello, World',
+   *   x: 'center',
+   *   y: 'middle',
+   *   font: 'Ghost',
+   *   horizontalLayout: 'full',
+   *   verticalLayout: 'full'
+   * });
    */
   constructor(cursor, options = {}) {
     super(cursor, options);
@@ -21,7 +37,10 @@ export default class FigText extends Shape {
 
   /**
    * Get actual width of the shape.
+   * Since we don't specify width of the shape, we need to calculate its sizes on our own.
+   * The longest line in our shape will be our shape width.
    *
+   * @override
    * @returns {Number}
    */
   getWidth() {
@@ -31,7 +50,10 @@ export default class FigText extends Shape {
 
   /**
    * Get actual height of the shape.
+   * Since we don't specify height of the shape, we need to calculate its sizes on our own.
+   * Count of total lines in our shape will be our height.
    *
+   * @override
    * @returns {Number}
    */
   getHeight() {
@@ -50,7 +72,7 @@ export default class FigText extends Shape {
   /**
    * Set font that will be used for rendering the text.
    *
-   * @param {String} [font=Standard]
+   * @param {String} [font='Standard']
    * @returns {FigText}
    */
   setFont(font = 'Standard') {
@@ -69,7 +91,7 @@ export default class FigText extends Shape {
   /**
    * Set horizontal layout.
    *
-   * @param {String} [layout=default]
+   * @param {String} [layout='default'] Can be default, full or fitted
    * @returns {FigText}
    */
   setHorizontalLayout(layout = 'default') {
@@ -89,7 +111,7 @@ export default class FigText extends Shape {
   /**
    * Set vertical layout.
    *
-   * @param {String} [layout=default]
+   * @param {String} [layout='default'] Can be default, full or fitted
    * @returns {FigText}
    */
   setVerticalLayout(layout = 'default') {
@@ -112,7 +134,7 @@ export default class FigText extends Shape {
   }
 
   /**
-   * Render the shape.
+   * Renders the shape.
    *
    * @returns {FigText}
    */
@@ -134,7 +156,7 @@ export default class FigText extends Shape {
   /**
    * Serialize shape to object representation.
    *
-   * @returns {{name, options}|*}
+   * @returns {Object}
    */
   toObject() {
     const obj = super.toObject();
