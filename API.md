@@ -93,7 +93,7 @@ Set horizontal layout.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [layout] | <code>String</code> | <code>default</code> | Can be default, full or fitted |
+| [layout] | <code>String</code> | <code>&#x27;default&#x27;</code> | Can be default, full or fitted |
 
 <a name="FigText+getVerticalLayout"></a>
 
@@ -110,7 +110,7 @@ Set vertical layout.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [layout] | <code>String</code> | <code>default</code> | Can be default, full or fitted |
+| [layout] | <code>String</code> | <code>&#x27;default&#x27;</code> | Can be default, full or fitted |
 
 <a name="FigText+render"></a>
 
