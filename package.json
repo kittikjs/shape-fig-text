@@ -23,7 +23,7 @@
     "test": "babel-node ./node_modules/.bin/isparta cover _mocha"
   },
   "dependencies": {
-    "figlet": "1.1.1",
+    "figlet": "1.1.2",
     "kittik-shape-basic": "3.1.0"
   },
   "devDependencies": {
