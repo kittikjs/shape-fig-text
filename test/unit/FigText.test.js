@@ -57,8 +57,8 @@ describe('Shape::FigText', () => {
     const text = new FigText(cursor);
     const mock = sinon.mock(cursor);
 
-    mock.expects('background').once().withExactArgs(false).returns(cursor);
-    mock.expects('foreground').once().withExactArgs(false).returns(cursor);
+    mock.expects('background').once().withExactArgs('none').returns(cursor);
+    mock.expects('foreground').once().withExactArgs('none').returns(cursor);
     mock.expects('moveTo').exactly(6).returns(cursor);
     mock.expects('write').exactly(6).withArgs('').returns(cursor);
 
@@ -100,8 +100,8 @@ describe('Shape::FigText', () => {
         height: 5,
         x: '10%',
         y: 10,
-        background: false,
-        foreground: false,
+        background: 'none',
+        foreground: 'none',
         font: 'Ghost',
         horizontalLayout: 'full',
         verticalLayout: 'fitted'
