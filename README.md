@@ -13,7 +13,11 @@
 ![dependencies](https://img.shields.io/david/kittikjs/shape-fig-text.svg)
 ![dev dependencies](https://img.shields.io/david/dev/kittikjs/shape-fig-text.svg)
 
-Text shape for Kittik slides that uses FIG fonts
+Text shape for Kittik slides that uses FIG fonts.
+
+| Examples |
+| -------- |
+| ![kittik](https://cloud.githubusercontent.com/assets/3625244/16409958/cf356b60-3d28-11e6-8aa6-6a6731abde61.gif) |
 
 ## Getting Started
 
@@ -31,6 +35,13 @@ import FigText from 'kittik-shape-fig-text';
 
 FigText.create(Cursor.create(), {text: 'Hello, there'}).render();
 ```
+
+You can pass all the options from `kittik-shape-basic` and few from `kittik-shape-fig-text` implementation.
+For more options take a look into API declaration.
+
+## API
+
+API declaration is [here](./API.md).
 
 ## License
 
